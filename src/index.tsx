@@ -11,7 +11,7 @@ declare let module: {hot: any};
 const root = document.getElementById('root');
 
 ReactDOM.render(
-    <AppContainer>
+    <AppContainer style={{'background-color': '#fafafa'}}>
         <App/>
     </AppContainer>,
     root

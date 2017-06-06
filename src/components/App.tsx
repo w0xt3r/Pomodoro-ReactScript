@@ -1,14 +1,26 @@
 
 import * as React from 'react';
 
+import {Storage} from '../models/Storage';
 
-export default class App extends React.Component<undefined, undefined> {
+import {Header} from './Header';
+import {Content} from './Content';
+
+export default class App extends React.Component<{}, {}> {
+
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+
+        Storage.prototype.setActivities();
+    }
 
     public render(): JSX.Element {
-        return <div>
-            <h1>Hello World!</h1>
-            <p>Full boilerplate for react and typescript with webpack2 and hot module replacement</p>
-        </div>;
+        return (
+            <div>
+                <Header title="Pomodoro" subtitle="working with React + Typescript" />
+                <Content/>
+            </div>
+        );
     }
 
 }
