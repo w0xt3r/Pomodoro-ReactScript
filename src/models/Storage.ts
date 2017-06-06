@@ -20,4 +20,12 @@ export class Storage {
         return [""];
     }
 
+    public setActivitiesDone(): void {
+
+    }
+
+    public getActivitiesDone(): string[] {
+        return null;
+    }
+
 }

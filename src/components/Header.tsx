@@ -11,7 +11,6 @@ export class Header extends Component<HeaderProps, {}> {
 
     public constructor(props?: HeaderProps, context?: any) {
         super(props, context);
-        console.log('[G] props - Header', props);
     }
 
     public render(): JSX.Element {

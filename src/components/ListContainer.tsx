@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Component} from "react";
+import {Component} from 'react';
 
 export interface ListContainerProps {
     inline?: boolean;
@@ -12,10 +12,18 @@ export class ListContainer extends Component<ListContainerProps, {}> {
 
     public constructor(props?: ListContainerProps, context?: any) {
         super(props, context);
+
+        this.renderItem = this.renderItem.bind(this);
+        this.handleClickItem = this.handleClickItem.bind(this);
+    }
+
+    public handleClickItem(event: any): void {
+        console.log('[G] - clicked', event.target.textContent);
     }
 
     public renderItem(item: string, index: number): JSX.Element {
-        return <li key={index} >{item}</li>;
+
+        return <li key={index} onClick={this.handleClickItem} >{item}</li>;
     }
 
     public render(): JSX.Element {
@@ -42,14 +50,19 @@ const styles: {[name: string]: any} = {
     container: {
         width: '25%',
         textAlign: 'center',
-        padding: '0 10px'
+        padding: '0 10px',
+        background: '#e5e5e5',
+        borderRadius: '5px',
+        boxShadow: '0 0 5px rgba(34, 34, 34, 0.3)'
     },
     title: {
         fontSize: '20px',
         borderBottom: '2px solid #bbb',
-        marginBottom: '20px'
+        marginBottom: '20px',
+        fontWeight: 'bold'
     },
     list: {
-        padding: '0'
+        padding: '0',
+        cursor: 'pointer'
     }
 };

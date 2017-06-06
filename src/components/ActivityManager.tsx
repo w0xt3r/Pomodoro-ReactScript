@@ -1,9 +1,13 @@
 
 import * as React from 'react';
-import {Component} from "react";
+import {Component} from 'react';
+
+import {Time} from './Time';
 
 export interface ActivityManagerProps {
     inline?: boolean;
+    activity?: string[];
+
 }
 
 export class ActivityManager extends Component<ActivityManagerProps, {}> {
@@ -20,7 +24,7 @@ export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
         return(
             <div style={styles.container} >
-                ActivityManager
+                <Time/>
             </div>
         );
     }
@@ -28,7 +32,7 @@ export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
 const styles: {[name: string]: any} = {
     container: {
-        width: '50%',
+        width: '46.5%',
         textAlign: 'center'
     }
 };
