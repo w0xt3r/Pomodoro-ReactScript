@@ -7,14 +7,25 @@ import {Header} from './Header';
 import {ListContainer} from './ListContainer';
 import {ActivityManager} from './ActivityManager';
 
-export default class App extends React.Component<{}, {}> {
+export interface AppState {
+    textChild: string;
+}
+
+export default class App extends React.Component<{}, AppState> {
 
     private storageManager: Storage = new Storage;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
 
+        this.state = {textChild: 'foo'};
         this.storageManager.setActivities();
+
+        this.handleClickChild = this.handleClickChild.bind(this);
+    }
+
+    public handleClickChild(event): void {
+        this.setState({textChild: event.target.textContent});
     }
 
     public render(): JSX.Element {
@@ -22,10 +33,10 @@ export default class App extends React.Component<{}, {}> {
             <div style={styles.container}>
                 <Header title="Pomodoro" subtitle="working with React + Typescript" />
                 <div>
-                    <ListContainer inline title="Tareas pendientes"
+                    <ListContainer inline title="Tareas pendientes" onClick={this.handleClickChild}
                                    activities={this.storageManager.getActivities()} />
 
-                    <ActivityManager inline />
+                    <ActivityManager inline text={this.state.textChild} />
 
                     <ListContainer inline={false} title="Tareas finalizadas"
                                    activities={this.storageManager.getActivities()} />

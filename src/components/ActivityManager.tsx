@@ -7,13 +7,14 @@ import {Time} from './Time';
 export interface ActivityManagerProps {
     inline?: boolean;
     activity?: string[];
-
+    text?: string;
 }
 
 export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
+        console.log('desde ActivityManager', this.props.text);
     }
 
     public render(): JSX.Element {
@@ -24,6 +25,7 @@ export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
         return(
             <div style={styles.container} >
+                <span>Tarea: {this.props.text}</span>
                 <Time/>
             </div>
         );

@@ -6,6 +6,7 @@ export interface ListContainerProps {
     inline?: boolean;
     title: string;
     activities?: string[];
+    onClick?: any;
 }
 
 export class ListContainer extends Component<ListContainerProps, {}> {
@@ -14,16 +15,17 @@ export class ListContainer extends Component<ListContainerProps, {}> {
         super(props, context);
 
         this.renderItem = this.renderItem.bind(this);
-        this.handleClickItem = this.handleClickItem.bind(this);
+        // this.handleClickItem = this.handleClickItem.bind(this);
     }
 
-    public handleClickItem(event: any): void {
-        console.log('[G] - clicked', event.target.textContent);
-    }
+    // public handleClickItem(event: any): void {
+    //     console.log('[G] - clicked', event.target.textContent);
+    // }
 
     public renderItem(item: string, index: number): JSX.Element {
 
-        return <li key={index} onClick={this.handleClickItem} >{item}</li>;
+        // return <li key={index} onClick={this.handleClickItem} >{item}</li>;
+        return <li key={index} onClick={this.props.onClick} >{item}</li>;
     }
 
     public render(): JSX.Element {
