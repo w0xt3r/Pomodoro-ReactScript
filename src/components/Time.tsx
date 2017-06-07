@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Component} from "react";
+import {Component} from 'react';
 
 export interface TimeState {
     minute: number;
@@ -80,12 +80,12 @@ export class Time extends Component<{}, TimeState> {
 
         return(
             <div style={styles.content}>
-                <div>
-                    <span style={this.state.hurry ? styles.noTime : styles.time} >
+                <div style={this.state.hurry ? styles.noTime : styles.time} >
+                    <span>
                         {this.state.minute <= 9 ? '0' + this.state.minute : this.state.minute}
                         :
                     </span>
-                    <span style={this.state.hurry ? styles.noTime : styles.time} >
+                    <span>
                         {this.state.second <= 9 ? '0' + this.state.second : this.state.second}
                     </span>
                 </div>
@@ -102,6 +102,7 @@ export class Time extends Component<{}, TimeState> {
 
 const styles: {[name: string]: any} = {
     content: {
+        marginTop: '20px',
         fontSize: '60px'
     },
     time: {

@@ -1,10 +1,5 @@
 
-//TODO: terminar de controlar el setActivities
-
-export interface Task {
-    name: string;
-    status: boolean;
-}
+import {Task} from './Task';
 
 export class Storage {
 
@@ -23,21 +18,31 @@ export class Storage {
         }
         ];
 
-    public setActivities(activity: Task): void {
-
+    public initActivities(): void {
         if(!localStorage.getItem('activities')) {
             localStorage.setItem('activities', JSON.stringify(this.basicList));
         }
+    }
+
+    public setActivities(activities: Task[]): void {
+        localStorage.setItem('activities', JSON.stringify(activities));
 
     }
 
-    public getActivities(): string[] {
+    public setActivity(activity: string): void {
+
+        let aux: Task[] = JSON.parse(localStorage.getItem('activities'));
+        aux.push({name: activity, status: false});
+        localStorage.setItem('activities', JSON.stringify(aux));
+
+    }
+
+    public getActivities(): Task[] {
 
         if(localStorage.getItem('activities')) {
             return JSON.parse(localStorage.getItem('activities'));
         }
 
-        return [''];
     }
 
 }

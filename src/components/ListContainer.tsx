@@ -2,10 +2,12 @@
 import * as React from 'react';
 import {Component} from 'react';
 
+import {Task} from '../models/Task';
+
 export interface ListContainerProps {
     inline?: boolean;
     title: string;
-    activities?: string[];
+    activities?: Task[];
     onClick?: any;
 }
 
@@ -33,7 +35,7 @@ export class ListContainer extends Component<ListContainerProps, ListContainerSt
         this.setState({index: -1});
     }
 
-    public renderItem(item: string, index: number): JSX.Element {
+    public renderItem(item: Task, index: number): JSX.Element {
 
         let itemStyle: {[name: string]: any} = {
             fontWeight: 'normal',
@@ -47,7 +49,7 @@ export class ListContainer extends Component<ListContainerProps, ListContainerSt
         return <li key={index} value={index} style={itemStyle}
                    onMouseEnter={this.handleMouseEnter}
                    onMouseLeave={this.handleMouseLeave}
-                   onClick={this.props.onClick} >{item}</li>;
+                   onClick={this.props.onClick} >{item.name}</li>;
     }
 
     public render(): JSX.Element {
