@@ -1,2 +1,2 @@
-# boilerplate-webpack-react-ts
- Boilerplate for react and typescript bundled with webpack and hmr.
+# TODO app (Pomodoro)
+ Pomodoro app developed with React and Typescript
