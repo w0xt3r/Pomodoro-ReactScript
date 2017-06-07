@@ -8,13 +8,13 @@ export interface ActivityManagerProps {
     inline?: boolean;
     activity?: string[];
     text?: string;
+    onActivityStatus: any;
 }
 
 export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
-        console.log('desde ActivityManager', this.props.text);
     }
 
     public render(): JSX.Element {
@@ -25,8 +25,10 @@ export class ActivityManager extends Component<ActivityManagerProps, {}> {
 
         return(
             <div style={styles.container} >
-                <span>Tarea: {this.props.text}</span>
+                <span>Working in: {this.props.text}</span>
                 <Time/>
+                <button onClick={() => this.props.onActivityStatus(false)} >Incomplete</button>
+                <button onClick={() => this.props.onActivityStatus(true)}>Complete</button>
             </div>
         );
     }

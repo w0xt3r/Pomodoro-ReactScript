@@ -6,28 +6,29 @@ export interface TimeState {
     minute: number;
     second: number;
     hurry: boolean;
+    paused: boolean;
 }
 
 export class Time extends Component<{}, TimeState> {
 
-    private minute: number = 1;
-    private second: number = 30;
+    private minute: number = 25;
+    private second: number = 0;
     private loop: any;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
 
-        this.state = {minute: this.minute, second: this.second, hurry: false};
+        this.state = {minute: this.minute, second: this.second, hurry: false, paused: true};
 
         this.formatClock = this.formatClock.bind(this);
-        this.loop = setInterval(this.formatClock, 1000);
+        this.startClock = this.startClock.bind(this);
+        this.resetClock = this.resetClock.bind(this);
 
     }
 
     public formatClock(): void {
 
         if(this.minute === 0 && this.second === 0) {
-
             clearInterval(this.loop);
         }
         else {
@@ -52,17 +53,47 @@ export class Time extends Component<{}, TimeState> {
 
     }
 
+    public startClock(event: any): void {
+
+        if(this.state.paused) {
+            this.loop = setInterval(this.formatClock, 1000);
+            this.setState({paused: !this.state.paused});
+            event.target.textContent = 'Pause';
+        } else {
+            clearInterval(this.loop);
+            this.setState({paused: !this.state.paused});
+            event.target.textContent = 'Start';
+        }
+
+    }
+
+    public resetClock(): void {
+
+        clearInterval(this.loop);
+        this.minute = 25;
+        this.second = 0;
+        this.setState({minute: 25, second: 0, hurry: false, paused: true});
+        document.getElementById('start').textContent = 'Start';
+    }
+
     public render(): JSX.Element {
 
         return(
             <div style={styles.content}>
-                <span style={this.state.hurry ? styles.noTime : styles.time} >
-                    {this.state.minute <= 9 ? '0' + this.state.minute : this.state.minute}
-                    :
-                </span>
-                <span style={this.state.hurry ? styles.noTime : styles.time} >
-                    {this.state.second <= 9 ? '0' + this.state.second : this.state.second}
-                </span>
+                <div>
+                    <span style={this.state.hurry ? styles.noTime : styles.time} >
+                        {this.state.minute <= 9 ? '0' + this.state.minute : this.state.minute}
+                        :
+                    </span>
+                    <span style={this.state.hurry ? styles.noTime : styles.time} >
+                        {this.state.second <= 9 ? '0' + this.state.second : this.state.second}
+                    </span>
+                </div>
+
+                <div>
+                    <button id="start" onClick={this.startClock} >Start</button>
+                    <button onClick={this.resetClock} >Reset</button>
+                </div>
             </div>
         );
     }

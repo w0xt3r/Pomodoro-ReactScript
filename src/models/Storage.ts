@@ -1,9 +1,29 @@
 
+//TODO: terminar de controlar el setActivities
+
+export interface Task {
+    name: string;
+    status: boolean;
+}
+
 export class Storage {
 
-    private basicList: string[] = ['api RESTful', 'react routes', 'revisar tslint'];
+    private basicList: Task[] = [
+        {
+            name: 'api RESTful',
+            status: false
+        },
+        {
+            name: 'learn React',
+            status: false
+        },
+        {
+            name: 'fill the bottle',
+            status: true
+        }
+        ];
 
-    public setActivities(): void {
+    public setActivities(activity: Task): void {
 
         if(!localStorage.getItem('activities')) {
             localStorage.setItem('activities', JSON.stringify(this.basicList));
@@ -17,15 +37,7 @@ export class Storage {
             return JSON.parse(localStorage.getItem('activities'));
         }
 
-        return [""];
-    }
-
-    public setActivitiesDone(): void {
-
-    }
-
-    public getActivitiesDone(): string[] {
-        return null;
+        return [''];
     }
 
 }

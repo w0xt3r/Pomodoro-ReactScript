@@ -9,23 +9,45 @@ export interface ListContainerProps {
     onClick?: any;
 }
 
-export class ListContainer extends Component<ListContainerProps, {}> {
+export interface ListContainerState {
+    index?: number;
+}
+
+export class ListContainer extends Component<ListContainerProps, ListContainerState> {
 
     public constructor(props?: ListContainerProps, context?: any) {
         super(props, context);
 
         this.renderItem = this.renderItem.bind(this);
-        // this.handleClickItem = this.handleClickItem.bind(this);
+        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+
+        this.state = {index: -1};
     }
 
-    // public handleClickItem(event: any): void {
-    //     console.log('[G] - clicked', event.target.textContent);
-    // }
+    public handleMouseEnter(event: any): void {
+        this.setState({index: event.target.value});
+    }
+
+    public handleMouseLeave(event: any): void {
+        this.setState({index: -1});
+    }
 
     public renderItem(item: string, index: number): JSX.Element {
 
-        // return <li key={index} onClick={this.handleClickItem} >{item}</li>;
-        return <li key={index} onClick={this.props.onClick} >{item}</li>;
+        let itemStyle: {[name: string]: any} = {
+            fontWeight: 'normal',
+            marginBottom: '10px'
+        };
+
+        if(this.state.index === index) {
+            itemStyle.fontWeight = 'bold';
+        }
+
+        return <li key={index} value={index} style={itemStyle}
+                   onMouseEnter={this.handleMouseEnter}
+                   onMouseLeave={this.handleMouseLeave}
+                   onClick={this.props.onClick} >{item}</li>;
     }
 
     public render(): JSX.Element {
@@ -51,6 +73,8 @@ export class ListContainer extends Component<ListContainerProps, {}> {
 const styles: {[name: string]: any} = {
     container: {
         width: '25%',
+        height: '400px',
+        overflowY: 'auto',
         textAlign: 'center',
         padding: '0 10px',
         background: '#e5e5e5',
@@ -65,6 +89,7 @@ const styles: {[name: string]: any} = {
     },
     list: {
         padding: '0',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        listStyle: 'none'
     }
 };

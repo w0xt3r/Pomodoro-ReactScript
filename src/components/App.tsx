@@ -18,14 +18,28 @@ export default class App extends React.Component<{}, AppState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
 
-        this.state = {textChild: 'foo'};
-        this.storageManager.setActivities();
+        this.state = {textChild: '"Click any activity from the left side"'};
+        // this.storageManager.setActivities();
 
-        this.handleClickChild = this.handleClickChild.bind(this);
+        this.handleClickItemList = this.handleClickItemList.bind(this);
+        this.handleUpdateStorage = this.handleUpdateStorage.bind(this);
     }
 
-    public handleClickChild(event): void {
+    public handleClickItemList(event): void {
         this.setState({textChild: event.target.textContent});
+    }
+
+    //TODO: terminar de controlar la gestion del storage
+    public handleUpdateStorage(status: boolean): void {
+        console.log('status', status);
+        if(status) {
+            //complete
+
+        } else {
+            //incomplete
+        }
+
+        this.setState({textChild: '"Click any activity from the left side"'});
     }
 
     public render(): JSX.Element {
@@ -33,12 +47,13 @@ export default class App extends React.Component<{}, AppState> {
             <div style={styles.container}>
                 <Header title="Pomodoro" subtitle="working with React + Typescript" />
                 <div>
-                    <ListContainer inline title="Tareas pendientes" onClick={this.handleClickChild}
+                    <ListContainer inline title="Task to do" onClick={this.handleClickItemList}
                                    activities={this.storageManager.getActivities()} />
 
-                    <ActivityManager inline text={this.state.textChild} />
+                    <ActivityManager inline text={this.state.textChild}
+                                     onActivityStatus={this.handleUpdateStorage} />
 
-                    <ListContainer inline={false} title="Tareas finalizadas"
+                    <ListContainer inline={false} title="Task done"
                                    activities={this.storageManager.getActivities()} />
                 </div>
             </div>
