@@ -26,7 +26,6 @@ export class Storage {
 
     public setActivities(activities: Task[]): void {
         localStorage.setItem('activities', JSON.stringify(activities));
-
     }
 
     public setActivity(activity: string): void {

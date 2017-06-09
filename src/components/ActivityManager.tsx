@@ -3,10 +3,11 @@ import * as React from 'react';
 import {Component} from 'react';
 
 import {Time} from './Time';
-import {type} from "os";
+
+const style = require('./ActivityManager.scss');
+
 
 export interface ActivityManagerProps {
-    inline?: boolean;
     activity?: string[];
     text?: string;
     onActivityStatus: any;
@@ -14,7 +15,6 @@ export interface ActivityManagerProps {
 }
 
 export interface ActivityManagerState {
-    bgColor: number;
     text: string;
 }
 
@@ -23,66 +23,48 @@ export class ActivityManager extends Component<ActivityManagerProps, ActivityMan
     public constructor(props?: any, context?: any) {
         super(props, context);
 
-        this.handleMouseEnter = this.handleMouseEnter.bind(this);
-        this.handleMouseLeave = this.handleMouseLeave.bind(this);
+        this.state = {text: ''};
+
         this.handleInputText = this.handleInputText.bind(this);
-
-        this.state = {bgColor: 0, text: ''};
     }
 
-    public handleMouseEnter(event: any): void {
-        this.setState({bgColor: event.target.value * 1});
-    }
-
-    public handleMouseLeave(event: any): void {
-        this.setState({bgColor: 0});
-    }
-
-    public handleInputText(event: any): void {
+    private handleInputText(event: any): void {
         this.setState({text: event.target.value});
     }
 
     public render(): JSX.Element {
 
-        if(this.props.inline) {
-            styles.container.float = 'left';
-        }
-
-        if(this.state.bgColor === 0) {
-            styles.incomplete.backgroundColor = '#eee';
-            styles.complete.backgroundColor = '#eee';
-        } else if(this.state.bgColor === 1) {
-            styles.incomplete.backgroundColor = '#F08080';
-            styles.complete.backgroundColor = '#eee';
-        } else if(this.state.bgColor === 2) {
-            styles.incomplete.backgroundColor = "#eee";
-            styles.complete.backgroundColor = "#90EE90";
-        }
-
         return(
-            <div style={styles.container} >
+            <div className={style.content} >
 
                 <span>Working in: {this.props.text}</span>
 
                 <Time/>
 
-                <div style={{marginTop: '20px'}}>
-                    <button style={styles.incomplete} value={1}
-                            onClick={() => this.props.onActivityStatus(false)}
-                            onMouseEnter={this.handleMouseEnter}
-                            onMouseLeave={this.handleMouseLeave} >Incomplete</button>
+                <div>
 
-                    <button style={styles.complete} value={2}
-                            onClick={() => this.props.onActivityStatus(true)}
-                            onMouseEnter={this.handleMouseEnter}
-                            onMouseLeave={this.handleMouseLeave} >Complete</button>
+                    <button
+                        className={style.incomplete}
+                        onClick={() => this.props.onActivityStatus(false)}>Incomplete</button>
+
+                    <button
+                        className={style.complete}
+                        onClick={() => this.props.onActivityStatus(true)} >Complete</button>
+
                 </div>
 
-                <div style={{marginTop: '50px'}}>
+                <div>
+
                     <h3>Add new task to do:</h3>
-                    <input type="text" id="task" value={this.state.text}
-                           onChange={this.handleInputText} placeholder="Type here..." />
+
+                    <input
+                        type="text" id="task"
+                        value={this.state.text}
+                        onChange={this.handleInputText}
+                        placeholder="Type here..." />
+
                     <button onClick={() => {this.props.onAddTask(this.state.text); this.setState({text: ''})}} >Add task</button>
+
                 </div>
 
             </div>
@@ -91,10 +73,6 @@ export class ActivityManager extends Component<ActivityManagerProps, ActivityMan
 }
 
 const styles: {[name: string]: any} = {
-    container: {
-        width: '46.5%',
-        textAlign: 'center'
-    },
     incomplete: {
         border: 'none',
         height: '35px',

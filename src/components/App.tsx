@@ -3,11 +3,12 @@ import * as React from 'react';
 
 import {Task} from '../models/Task';
 import {Storage} from '../models/Storage';
-
 import {Header} from './Header';
 import {Footer} from './Footer';
 import {ListContainer} from './ListContainer';
 import {ActivityManager} from './ActivityManager';
+
+const style = require('./App.scss');
 
 
 export interface AppState {
@@ -39,7 +40,7 @@ export default class App extends React.Component<{}, AppState> {
      *
      * @param   {event} event
      */
-    public handleClickItemList(event): void {
+    public handleClickItemList(event: any): void {
         this.setState({textChild: event.target.textContent});
     }
 
@@ -83,32 +84,30 @@ export default class App extends React.Component<{}, AppState> {
 
     public render(): JSX.Element {
         return (
-            <div>
+            <div className={style.body} >
+
                 <Header title="Pomodoro" subtitle="working with React + Typescript" />
 
-                <div style={styles.container}>
+                <div className={style.container} >
                     <div>
+
                         <ListContainer inline title="Task to do" onClick={this.handleClickItemList}
                                        activities={this.state.activities.filter(a => {return a.status === false})} />
 
-                        <ActivityManager inline text={this.state.textChild}
+                        <ActivityManager text={this.state.textChild}
                                          onAddTask={this.handleAddTask}
                                          onActivityStatus={this.handleUpdateStorage} />
 
                         <ListContainer inline={false} title="Task done"
                                        activities={this.state.activities.filter(a => {return a.status === true})} />
+
                     </div>
                 </div>
 
                 <Footer/>
+
             </div>
         );
     }
 
 }
-
-const styles: {[name: string]: any} = {
-    container: {
-        padding: '0 20px'
-    }
-};

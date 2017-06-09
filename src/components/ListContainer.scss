@@ -1,0 +1,46 @@
+
+.container {
+    background-color: #e5e5e5;
+    padding: 0 10px;
+    width: 25%;
+    height: 400px;
+    overflow-y: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(34, 34, 34, 0.3);
+    text-align: center;
+
+    .title {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #bbb;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .list {
+        padding: 0;
+        cursor: pointer;
+        list-style: none;
+
+        .itemList {
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .itemList:hover {
+            font-weight: bold;
+        }
+
+    }
+
+}
+
+//composes:container - Indicates that .left is an extension from .container
+.left {
+    composes: container;
+    float: left;
+}
+
+.right {
+    composes: container;
+    float: right;
+}

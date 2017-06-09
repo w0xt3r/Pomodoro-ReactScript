@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 
+
 export interface TimeState {
     minute: number;
     second: number;
@@ -23,15 +24,14 @@ export class Time extends Component<{}, TimeState> {
         this.formatClock = this.formatClock.bind(this);
         this.startClock = this.startClock.bind(this);
         this.resetClock = this.resetClock.bind(this);
-
     }
 
     public formatClock(): void {
 
         if(this.minute === 0 && this.second === 0) {
             clearInterval(this.loop);
-        }
-        else {
+
+        } else {
 
             if(this.minute === 0) {
                 this.setState({hurry: !this.state.hurry});
@@ -41,10 +41,8 @@ export class Time extends Component<{}, TimeState> {
                 this.minute -= 1;
                 this.second = 59;
                 this.setState({minute: this.minute, second: this.second});
-                return;
-            }
 
-            if(this.second > 0) {
+            } else if(this.second > 0) {
                 this.second -= 1;
                 this.setState({minute: this.minute, second: this.second});
             }
@@ -57,14 +55,14 @@ export class Time extends Component<{}, TimeState> {
 
         if(this.state.paused) {
             this.loop = setInterval(this.formatClock, 1000);
-            this.setState({paused: !this.state.paused});
             event.target.textContent = 'Pause';
+
         } else {
             clearInterval(this.loop);
-            this.setState({paused: !this.state.paused});
             event.target.textContent = 'Start';
         }
 
+        this.setState({paused: !this.state.paused});
     }
 
     public resetClock(): void {
